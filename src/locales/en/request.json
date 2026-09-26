@@ -1,0 +1,12 @@
+{
+  "serverError": "Server error, please try again later",
+  "internalError": "Server error, please try again later",
+  "httpError": "Request failed ({statusCode})",
+  "protocolError": "Malformed response envelope",
+  "businessError": "Request failed",
+  "networkError": "Network request failed",
+  "requestFailed": "Request failed",
+  "notLoggedIn": "Please sign in first",
+  "loginNoToken": "Login API returned no token",
+  "loginExecutorMissing": "Login executor not configured: call configureAuth in the app entry"
+}

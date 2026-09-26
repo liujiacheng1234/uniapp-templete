@@ -55,7 +55,15 @@ describe('主题预设（themes/presets）', () => {
   it('所有预设（含深色）都具备完整 palette 关键色', () => {
     for (const bank of [lightThemePresets, darkThemePresets]) {
       for (const preset of Object.values(bank)) {
-        for (const key of ['primary', 'ink', 'page', 'card', 'border', 'danger', 'warning'] as const) {
+        for (const key of [
+          'primary',
+          'ink',
+          'page',
+          'card',
+          'border',
+          'danger',
+          'warning',
+        ] as const) {
           expect(preset.palette[key], `${key}`).toBeTruthy()
         }
       }

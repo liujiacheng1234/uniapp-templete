@@ -1,5 +1,6 @@
 import { AUTH_STORAGE_KEY, getStorage, removeStorage } from '@/utils/storage'
 import { matchMockRoute, MOCK_DEFAULT_DELAY_MS } from '@/mocks/handlers'
+import { tStatic } from '@/locales'
 import { CommonCode, UserCode } from './business-code'
 
 /** 请求超时（ms）。uni 各端默认 60s，弱网下用户等待过久；显式收敛到 15s。
@@ -63,7 +64,7 @@ export function createRequestError(
   statusCode?: number,
   code?: number
 ): RequestError {
-  const error = new Error(message || '请求失败') as RequestError
+  const error = new Error(message || tStatic('request.requestFailed')) as RequestError
   error.detail = detail
   error.statusCode = statusCode
   error.code = code
@@ -93,12 +94,17 @@ export function unwrapResult<T>(payload: unknown, statusCode = 200): T {
     typeof payload !== 'object' ||
     typeof (payload as ResultEnvelope).code !== 'number'
   ) {
-    throw createRequestError('响应协议异常', payload, statusCode)
+    throw createRequestError(tStatic('request.protocolError'), payload, statusCode)
   }
 
   const result = payload as ResultEnvelope<T>
   if (result.code !== CommonCode.SUCCESS) {
-    throw createRequestError(result.msg || '业务处理失败', result, statusCode, result.code)
+    throw createRequestError(
+      result.msg || tStatic('request.businessError'),
+      result,
+      statusCode,
+      result.code
+    )
   }
 
   return result.data as T
@@ -203,9 +209,11 @@ function performRequest<T>(options: RequestOptions): Promise<T> {
         if (statusCode !== 200) {
           // 普通 JSON 接口按协议固定返回 HTTP 200；非 200 属于传输层或协议异常。
           if (statusCode >= 500) {
-            notifyServerError('服务异常，请稍后重试')
+            notifyServerError(tStatic('request.serverError'))
           }
-          reject(createRequestError(`请求失败(${statusCode})`, response, statusCode))
+          reject(
+            createRequestError(tStatic('request.httpError', { statusCode }), response, statusCode)
+          )
           return
         }
 
@@ -213,13 +221,18 @@ function performRequest<T>(options: RequestOptions): Promise<T> {
           resolve(unwrapResult<T>(response.data, statusCode))
         } catch (error) {
           if (isRequestError(error) && error.code === CommonCode.INTERNAL_ERROR) {
-            notifyServerError(error.message || '服务器异常，请稍后重试')
+            notifyServerError(error.message || tStatic('request.internalError'))
           }
           reject(error)
         }
       },
       fail: (error) => {
-        reject(createRequestError(error && error.errMsg ? error.errMsg : '网络请求失败', error))
+        reject(
+          createRequestError(
+            error && error.errMsg ? error.errMsg : tStatic('request.networkError'),
+            error
+          )
+        )
       },
     })
   })
@@ -239,7 +252,12 @@ export async function request<T = unknown>(options: RequestOptions): Promise<T> 
 
   if (requiresAuthentication(options) && !getToken()) {
     redirectToLogin()
-    throw createRequestError('请先登录', undefined, undefined, UserCode.UNAUTHORIZED)
+    throw createRequestError(
+      tStatic('request.notLoggedIn'),
+      undefined,
+      undefined,
+      UserCode.UNAUTHORIZED
+    )
   }
 
   try {

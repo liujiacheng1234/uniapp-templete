@@ -15,7 +15,7 @@ import { ExampleIssueTypeLabel } from '@/enums'
 
 const { t } = useAppI18n()
 const toast = useToast('example-form-toast')
-const { loading: submitting, run } = useApi({ fallbackMessage: t('common.submitFailed') })
+const { loading: submitting, run } = useApi({ fallbackMessage: () => t('common.submitFailed') })
 
 const orderNo = ref('')
 const issueType = ref<number | null>(null)
@@ -63,7 +63,10 @@ async function onSubmit() {
       })
     )
     toast.success(t('form.toast.submitted'))
-    setTimeout(() => uni.navigateBack({ fail: () => uni.reLaunch({ url: '/pages/index/index' }) }), 600)
+    setTimeout(
+      () => uni.navigateBack({ fail: () => uni.reLaunch({ url: '/pages/index/index' }) }),
+      600
+    )
   } catch {
     // 失败已由 useApi 统一 toast；业务码分支在此处理
   }
@@ -77,7 +80,7 @@ async function onSubmit() {
     <view class="card">
       <!-- 订单号 -->
       <view class="field">
-        <text class="field-label wot-text-main">{{ t('form.orderNo') }}</text>
+        <text class="field-label wot-text-text-main">{{ t('form.orderNo') }}</text>
         <wd-input
           v-model="orderNo"
           :placeholder="t('form.orderNoPlaceholder')"
@@ -90,7 +93,7 @@ async function onSubmit() {
 
       <!-- 问题类型 -->
       <view class="field">
-        <text class="field-label wot-text-main">{{ t('form.issueType') }}</text>
+        <text class="field-label wot-text-text-main">{{ t('form.issueType') }}</text>
         <wd-select-picker
           v-model="issueTypeModel"
           :columns="issueColumns"
@@ -106,7 +109,7 @@ async function onSubmit() {
 
       <!-- 备注 -->
       <view class="field">
-        <text class="field-label wot-text-main">{{ t('form.remark') }}</text>
+        <text class="field-label wot-text-text-main">{{ t('form.remark') }}</text>
         <wd-textarea
           v-model="remark"
           :placeholder="t('form.remarkPlaceholder')"

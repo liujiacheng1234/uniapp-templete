@@ -15,7 +15,9 @@ function waitFor(predicate: () => boolean) {
 
 describe('usePagedList（分页状态机）', () => {
   it('refresh 拉首页并更新 hasMore', async () => {
-    const fetchPage = vi.fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>().mockResolvedValue({ items: [{ id: 1 }], hasMore: true })
+    const fetchPage = vi
+      .fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>()
+      .mockResolvedValue({ items: [{ id: 1 }], hasMore: true })
     const { items, loading, hasMore, refresh } = usePagedList<Row>({ fetchPage, pageSize: 2 })
 
     refresh()
@@ -32,7 +34,10 @@ describe('usePagedList（分页状态机）', () => {
       .fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>()
       .mockResolvedValueOnce({ items: [{ id: 1 }, { id: 2 }], hasMore: true })
       .mockResolvedValueOnce({ items: [{ id: 3 }], hasMore: false })
-    const { items, loadingMore, hasMore, refresh, loadMore } = usePagedList<Row>({ fetchPage, pageSize: 2 })
+    const { items, loadingMore, hasMore, refresh, loadMore } = usePagedList<Row>({
+      fetchPage,
+      pageSize: 2,
+    })
 
     refresh()
     await waitFor(() => !loadingMore.value && items.value.length === 2)
@@ -45,7 +50,9 @@ describe('usePagedList（分页状态机）', () => {
   })
 
   it('无更多时 loadMore 不发起请求', async () => {
-    const fetchPage = vi.fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>().mockResolvedValue({ items: [], hasMore: false })
+    const fetchPage = vi
+      .fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>()
+      .mockResolvedValue({ items: [], hasMore: false })
     const { hasMore, refresh, loadMore } = usePagedList<Row>({ fetchPage, pageSize: 2 })
 
     refresh()
@@ -57,7 +64,9 @@ describe('usePagedList（分页状态机）', () => {
 
   it('失败回调带 mode，loading 复位，不吞掉状态', async () => {
     const onError = vi.fn()
-    const fetchPage = vi.fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>().mockRejectedValue(new Error('网络错误'))
+    const fetchPage = vi
+      .fn<(page: { limit: number; offset: number }) => Promise<PagedResult<Row>>>()
+      .mockRejectedValue(new Error('网络错误'))
     const { loading, refresh } = usePagedList<Row>({ fetchPage, onError })
 
     refresh()

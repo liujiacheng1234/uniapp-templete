@@ -55,16 +55,18 @@ describe('useApi（统一请求调用范式）', () => {
 
   it('toast: false 跳过自动提示（调用方自行 toast）', async () => {
     const { run } = useApi()
-    await expect(
-      run(() => Promise.reject(new Error('x')), { toast: false })
-    ).rejects.toThrowError('x')
+    await expect(run(() => Promise.reject(new Error('x')), { toast: false })).rejects.toThrowError(
+      'x'
+    )
     expect(uniMock.showToast).not.toHaveBeenCalled()
   })
 
   it('100999 内部异常：请求层已 toast，不再重复提示', async () => {
     const { run } = useApi()
     await expect(
-      run(() => Promise.reject(createRequestError('服务器异常', undefined, 200, CommonCode.INTERNAL_ERROR)))
+      run(() =>
+        Promise.reject(createRequestError('服务器异常', undefined, 200, CommonCode.INTERNAL_ERROR))
+      )
     ).rejects.toThrow()
     expect(uniMock.showToast).not.toHaveBeenCalled()
   })

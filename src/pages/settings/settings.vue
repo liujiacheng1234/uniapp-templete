@@ -80,8 +80,10 @@ onShow(applyNavTitle)
 <template>
   <view class="settings">
     <view class="settings-intro">
-      <text class="settings-intro-title wot-text-main">{{ t('settings.intro.title') }}</text>
-      <text class="settings-intro-desc wot-text-secondary">{{ t('settings.intro.desc') }}</text>
+      <text class="settings-intro-title wot-text-text-main">{{ t('settings.intro.title') }}</text>
+      <text class="settings-intro-desc wot-text-text-secondary">
+        {{ t('settings.intro.desc') }}
+      </text>
     </view>
 
     <view class="settings-section">

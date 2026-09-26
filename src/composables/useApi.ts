@@ -1,6 +1,7 @@
 import { ref, type Ref } from 'vue'
 import { CommonCode } from '@/api/business-code'
 import { isRequestError } from '@/api/request'
+import { tStatic } from '@/locales'
 
 /**
  * 统一请求调用范式：页面不再各自手写「try/catch + toast + loading」样板。
@@ -53,19 +54,26 @@ function alreadyToastedByRequestLayer(error: unknown): boolean {
 export interface UseApiOptions {
   /** 失败时是否自动 toast，默认 true */
   toastOnError?: boolean
-  /** 兜底文案：error.message 为空时使用（建议传 i18n 文案） */
-  fallbackMessage?: string
+  /**
+   * 兕底文案：error.message 为空时使用（建议传 i18n 文案）。
+   * 支持传 getter（`() => t('xxx')`）：失败时才求值，语言切换后兜底文案跟随当前语言。
+   */
+  fallbackMessage?: string | (() => string)
 }
 
 export interface ApiRunOptions {
   /** 单次调用覆盖 toastOnError */
   toast?: boolean
-  /** 单次调用覆盖 fallbackMessage */
-  fallbackMessage?: string
+  /** 单次调用覆盖 fallbackMessage（同样支持 getter，失败时才求值） */
+  fallbackMessage?: string | (() => string)
+}
+
+function resolveFallbackMessage(fallback?: string | (() => string)): string {
+  return typeof fallback === 'function' ? fallback() : (fallback ?? '')
 }
 
 export function useApi(options: UseApiOptions = {}) {
-  const { toastOnError = true, fallbackMessage = '' } = options
+  const { toastOnError = true, fallbackMessage } = options
 
   const loading: Ref<boolean> = ref(false)
 
@@ -76,14 +84,17 @@ export function useApi(options: UseApiOptions = {}) {
    */
   async function run<T>(fn: () => Promise<T>, runOptions: ApiRunOptions = {}): Promise<T> {
     const shouldToast = runOptions.toast ?? toastOnError
-    const fallback = runOptions.fallbackMessage ?? fallbackMessage
+    const fallback = resolveFallbackMessage(runOptions.fallbackMessage ?? fallbackMessage)
 
     loading.value = true
     try {
       return await fn()
     } catch (error) {
       if (shouldToast && !alreadyToastedByRequestLayer(error)) {
-        uni.showToast({ title: getErrorMessage(error, fallback) || '请求失败', icon: 'none' })
+        uni.showToast({
+          title: getErrorMessage(error, fallback) || tStatic('request.requestFailed'),
+          icon: 'none',
+        })
       }
       throw error
     } finally {

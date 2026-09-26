@@ -71,21 +71,23 @@ const currentModeLabel = computed(() => t(`theme.mode.${mode.value}`))
   <view class="page">
     <!-- Hero -->
     <view class="hero">
-      <text class="hero-title wot-text-main">{{ t('index.hero.title') }}</text>
-      <text class="hero-desc wot-text-secondary">{{ t('index.hero.desc') }}</text>
+      <text class="hero-title wot-text-text-main">{{ t('index.hero.title') }}</text>
+      <text class="hero-desc wot-text-text-secondary">{{ t('index.hero.desc') }}</text>
     </view>
 
     <!-- 主题预览 -->
     <view class="card wot-border-stroke-main">
       <view class="card-head">
-        <text class="card-title wot-text-main">{{ t('index.themePreview.title') }}</text>
-        <text class="card-tag wot-text-secondary">{{ currentPresetLabel }} · {{ currentModeLabel }}</text>
+        <text class="card-title wot-text-text-main">{{ t('index.themePreview.title') }}</text>
+        <text class="card-tag wot-text-text-secondary">
+          {{ currentPresetLabel }} · {{ currentModeLabel }}
+        </text>
       </view>
-      <text class="card-desc wot-text-secondary">{{ t('index.themePreview.desc') }}</text>
+      <text class="card-desc wot-text-text-secondary">{{ t('index.themePreview.desc') }}</text>
       <view class="swatches">
         <view v-for="swatch in swatches" :key="swatch.label" class="swatch">
           <view class="swatch-color" :style="{ backgroundColor: swatch.value }" />
-          <text class="swatch-label wot-text-secondary">{{ swatch.label }}</text>
+          <text class="swatch-label wot-text-text-secondary">{{ swatch.label }}</text>
         </view>
       </view>
     </view>
@@ -98,10 +100,10 @@ const currentModeLabel = computed(() => t(`theme.mode.${mode.value}`))
       @click="open(card.url)"
     >
       <view class="card-head">
-        <text class="card-title wot-text-main">{{ card.title }}</text>
-        <wd-icon name="arrow-right" size="32rpx" custom-class="wot-text-auxiliary" />
+        <text class="card-title wot-text-text-main">{{ card.title }}</text>
+        <wd-icon name="arrow-right" size="32rpx" custom-class="wot-text-text-auxiliary" />
       </view>
-      <text class="card-desc wot-text-secondary">{{ card.desc }}</text>
+      <text class="card-desc wot-text-text-secondary">{{ card.desc }}</text>
     </view>
   </view>
 </template>

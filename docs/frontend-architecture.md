@@ -18,7 +18,7 @@
 | 国际化 | vue-i18n（runtime-only 模式） | 9.x |
 | 虚拟根组件 | @uni-ku/root（App.ku.vue） | ^1.5 |
 | 测试 | Vitest（纯逻辑层单测） | ^3（勿升 4，需 vite 6+） |
-| 包管理 | **npm（唯一）** | node ≥ 18 |
+| 包管理 | **npm（唯一）** | node ≥ 20 |
 
 包管理器铁律：**只使用 npm**（锁文件仅 `package-lock.json`），不引入 pnpm/yarn。
 
@@ -83,7 +83,8 @@ uni.request / mocks
 - 后端所有接口 **HTTP 200 + Result 信封**：`{ code, msg, data }`；
 - `request<T>()` 已在请求层解包：**T 直接就是后端 `data` 的类型**，`code/msg` 仅在失败时随 `RequestError` 抛出；
 - HTTP ≥ 500 / 协议异常 → 请求层统一 toast 兜底并 reject（`RequestError.statusCode` / `detail` 可查）；
-- 超时 15s（`REQUEST_TIMEOUT_MS`），超时走 fail 分支转为网络错误。
+- 请求层用户可见文案统一走 `locales` 的 `tStatic()`（`request` 命名空间），随语言切换；请求层 `uni.showToast` 与页面 wot `useToast` 是两套提示体系，视觉存在差异（已知取舍，`useApi` 已做重复提示去重）；
+- 超时 15s（`REQUEST_TIMEOUT_MS`），超时走 fail 分支转为「网络请求失败」错误。
 
 ### 4.2 接口函数标准写法
 
@@ -120,7 +121,8 @@ export function getExampleOrders(params: ExampleOrderPageRequest = {}) {
 
 ```ts
 const toast = useToast('trip-list-toast')
-const { loading, run } = useApi({ fallbackMessage: t('tripList.toast.loadFailed') })
+// fallbackMessage 建议 getter 写法：失败时才求值，语言切换后兜底文案跟随当前语言
+const { loading, run } = useApi({ fallbackMessage: () => t('tripList.toast.loadFailed') })
 
 async function loadFirst() {
   try {
@@ -163,7 +165,8 @@ async function loadFirst() {
 1. 页面/组件样式**禁止硬编码色值**，一律消费 `var(--wot-*)` 语义 token（如 `--wot-text-main`、`--wot-filled-oppo`），深浅模式自动适配；
 2. 无法用 CSS 变量的场景（map marker、Canvas、`uni.showModal.confirmColor`、内联 `color=""`）用 `useThemeColors().palette`；
 3. 新增/调整品牌色**只改 `themes/presets.ts`**，禁止平行 SCSS 色板；
-4. `pages.json` 的静态色只决定首帧，不跟随主题切换（已知限制）；新增页面只写 `navigationBarTitleText`，颜色继承 globalStyle。
+4. `pages.json` 的静态色只决定首帧，不跟随主题切换（已知限制）；新增页面只写 `navigationBarTitleText`，颜色继承 globalStyle；
+5. `wot-*` 原子类由根目录 `uno.config.ts` 注册的 `presetWot()` 提供，颜色类名模式 `wot-{text|bg|border}-{token}`（如 `wot-text-text-main`、`wot-bg-filled-oppo`、`wot-border-border-light`）；注意 token 本身已含语义段，**不要写成 `wot-text-main`**——该类不存在，样式会被静默忽略。
 
 ### 7.3 深色适配 checklist（新页面必查）
 
@@ -177,7 +180,8 @@ async function loadFirst() {
 - 一个页面/领域一个命名空间：`locales/zh-CN/<ns>.json` 与 `en` **成对新增** → `locales/<lang>/index.ts` 注册 → 页面 `t('<ns>.key')`；
 - `fallbackLocale: 'zh-CN'`（缺 key 回退中文，不会露出英文）；文案参数用 `{name}` 占位：`t('x.hi', { name })`；
 - 用户可见文案禁止硬编码在模板里（枚举 Label 属后端 desc 口径，允许作展示兜底）；
-- 页面标题需在 `onShow` 里 `uni.setNavigationBarTitle` 跟随语言（参考 settings 页）。
+- 页面标题需在 `onShow` 里 `uni.setNavigationBarTitle` 跟随语言（参考 settings 页）；
+- 非组件上下文（`api/request.ts`、`utils` 等）用 `locales/index.ts` 的 `tStatic(key, params)` 取文案；命名空间 `request` 承载请求层/登录态的用户可见提示。
 
 ## 9. 组件规范
 
@@ -227,6 +231,7 @@ async function loadFirst() {
 | `VITE_USE_MOCK` | `'true'` 时命中 mock 路由短路 | `.env.development` 默认 true |
 
 - `*.local` 永不入库（个人差异 / 域名 / 密钥）；
+- 构建期校验：`build:*` 时 `VITE_API_BASE_URL` 缺失直接报错中止；若显式 `VITE_USE_MOCK=true` 构建 mock 演示包则仅大声告警（校验逻辑在 `vite.config.mts`）；
 - 生产构建前必须确认 `VITE_API_BASE_URL` 已配置且为备案 https 域名（小程序合法域名要求）。
 
 ## 14. 已知限制

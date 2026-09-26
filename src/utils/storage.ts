@@ -3,7 +3,12 @@ export const AUTH_STORAGE_KEY = 'lease_auth_session'
 export function getStorage(key: string, fallback = null) {
   try {
     const value = uni.getStorageSync(key)
-    return value || fallback
+    // uni storage 缺失 key 时各端返回 ''；这里显式区分「缺失」与合法 falsy 值（0 / false），
+    // 避免把 0 / false 误判为缺失而返回 fallback。
+    if (value === '' || value === null || value === undefined) {
+      return fallback
+    }
+    return value
   } catch {
     return fallback
   }

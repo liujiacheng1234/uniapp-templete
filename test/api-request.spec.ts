@@ -98,12 +98,14 @@ describe('request（请求主流程）', () => {
   })
 
   function mockResponse(statusCode: number, data: unknown) {
-    uniMock.request.mockImplementationOnce((options: {
-      success?: (res: { statusCode: number; data: unknown }) => void
-      fail?: (err: { errMsg: string }) => void
-    }) => {
-      options.success?.({ statusCode, data })
-    })
+    uniMock.request.mockImplementationOnce(
+      (options: {
+        success?: (res: { statusCode: number; data: unknown }) => void
+        fail?: (err: { errMsg: string }) => void
+      }) => {
+        options.success?.({ statusCode, data })
+      }
+    )
   }
 
   it('成功：解包 data 并注入 userToken 请求头', async () => {

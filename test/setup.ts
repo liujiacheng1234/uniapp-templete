@@ -24,7 +24,10 @@ export const uniMock = {
 }
 
 vi.stubGlobal('uni', uniMock)
-vi.stubGlobal('getCurrentPages', vi.fn(() => []))
+vi.stubGlobal(
+  'getCurrentPages',
+  vi.fn(() => [])
+)
 
 /** 与小程序 storage 行为对齐：值序列化由调用方负责，这里直接存原值 */
 export function peekStorage(key: string): unknown {

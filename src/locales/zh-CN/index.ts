@@ -5,6 +5,7 @@ import index from './index.json'
 import login from './login.json'
 import list from './list.json'
 import form from './form.json'
+import request from './request.json'
 
 /**
  * 语言包聚合：一个页面/领域一个命名空间（文件名与命名空间一致）。
@@ -19,4 +20,5 @@ export default {
   login,
   list,
   form,
+  request,
 }

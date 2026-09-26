@@ -33,7 +33,10 @@ const { items, loading, loadingMore, hasMore, refresh, loadMore } = usePagedList
   onError: (error, mode) => {
     loadError.value = mode === 'refresh'
     toast.error(
-      getErrorMessage(error, mode === 'refresh' ? t('common.loadFailed') : t('common.loadMoreFailed'))
+      getErrorMessage(
+        error,
+        mode === 'refresh' ? t('common.loadFailed') : t('common.loadMoreFailed')
+      )
     )
   },
 })
@@ -61,8 +64,8 @@ function onRetry() {
     <wd-toast selector="example-list-toast" />
 
     <view class="list-summary">
-      <text class="wot-text-secondary">{{ summary }}</text>
-      <text class="wot-text-auxiliary list-demo">{{ t('list.demo') }}</text>
+      <text class="wot-text-text-secondary">{{ summary }}</text>
+      <text class="wot-text-text-auxiliary list-demo">{{ t('list.demo') }}</text>
     </view>
 
     <!-- 首屏 loading -->
@@ -72,33 +75,35 @@ function onRetry() {
 
     <!-- 首屏失败 -->
     <view v-else-if="loadError" class="list-state">
-      <text class="wot-text-secondary">{{ t('common.loadFailed') }}</text>
+      <text class="wot-text-text-secondary">{{ t('common.loadFailed') }}</text>
       <wd-button size="small" plain @click="onRetry">{{ t('list.retry') }}</wd-button>
     </view>
 
     <!-- 空态 -->
     <view v-else-if="items.length === 0" class="list-state">
-      <text class="wot-text-secondary">{{ t('common.empty') }}</text>
+      <text class="wot-text-text-secondary">{{ t('common.empty') }}</text>
     </view>
 
     <!-- 列表 -->
     <template v-else>
       <view v-for="order in items" :key="order.id" class="order-card">
         <view class="order-head">
-          <text class="order-no wot-text-main">{{ order.orderNo }}</text>
+          <text class="order-no wot-text-text-main">{{ order.orderNo }}</text>
           <order-status-tag :status="order.status" />
         </view>
         <view class="order-meta">
-          <text class="wot-text-secondary">{{ t('list.itemAmount') }}</text>
-          <text class="order-amount wot-text-main">¥{{ yuan(order.amount).toFixed(2) }}</text>
+          <text class="wot-text-text-secondary">{{ t('list.itemAmount') }}</text>
+          <text class="order-amount wot-text-text-main">¥{{ yuan(order.amount).toFixed(2) }}</text>
         </view>
-        <text class="order-time wot-text-auxiliary">{{ formatDateTime(order.createdAt) }}</text>
+        <text class="order-time wot-text-text-auxiliary">
+          {{ formatDateTime(order.createdAt) }}
+        </text>
       </view>
 
       <!-- 加载更多状态 -->
       <view class="list-state list-more">
         <wd-loading v-if="loadingMore" />
-        <text v-else-if="!hasMore" class="wot-text-auxiliary">{{ t('list.noMore') }}</text>
+        <text v-else-if="!hasMore" class="wot-text-text-auxiliary">{{ t('list.noMore') }}</text>
       </view>
     </template>
   </view>

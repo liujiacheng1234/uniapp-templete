@@ -1,0 +1,12 @@
+{
+  "serverError": "服务异常，请稍后重试",
+  "internalError": "服务器异常，请稍后重试",
+  "httpError": "请求失败({statusCode})",
+  "protocolError": "响应协议异常",
+  "businessError": "业务处理失败",
+  "networkError": "网络请求失败",
+  "requestFailed": "请求失败",
+  "notLoggedIn": "请先登录",
+  "loginNoToken": "登录接口未返回 token",
+  "loginExecutorMissing": "尚未配置登录执行器：请在应用入口调用 configureAuth"
+}

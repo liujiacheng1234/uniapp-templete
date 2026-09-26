@@ -26,7 +26,7 @@ export function formatDistance(meters?: number, fallback = '--'): string {
 
 /**
  * 金额：后端统一「分」(integer)，展示/计算前转「元」。
- * 非数字或缺省返回 0。详见 CLAUDE.md 的 *Money is in cents*。
+ * 非数字或缺省返回 0。金额单位「分」的跨端约定见 docs/frontend-architecture.md §4.2。
  */
 export function yuan(cents?: number): number {
   return typeof cents === 'number' && Number.isFinite(cents) ? cents / 100 : 0

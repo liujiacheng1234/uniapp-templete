@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 最终门禁：本地 husky 钩子可被 --no-verify 绕过，CI 不可。
+      # verify = eslint（0 error 0 warning）+ vue-tsc 全量类型检查 + vitest 单测。
+      - name: Lint + type-check + test
+        run: npm run verify

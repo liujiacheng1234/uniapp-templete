@@ -23,7 +23,7 @@ import { formatDateTime } from '@/utils/commonUtil'
 
 const { t } = useAppI18n()
 const toast = useToast('login-toast')
-const { loading: submitting, run } = useApi({ fallbackMessage: t('login.toast.loginFailed') })
+const { loading: submitting, run } = useApi({ fallbackMessage: () => t('login.toast.loginFailed') })
 
 const session = ref<AuthSession | null>(getAuthSession())
 const loggedIn = computed(() => isLoggedIn())
@@ -61,7 +61,9 @@ async function onSubmit() {
   if (submitting.value || !validate()) return
 
   try {
-    const loginRes = await run(() => loginByAccount({ username: username.value.trim(), password: password.value }))
+    const loginRes = await run(() =>
+      loginByAccount({ username: username.value.trim(), password: password.value })
+    )
     session.value = applyAuthSession(loginRes)
     toast.success(t('login.loggedIn'))
     setTimeout(() => uni.reLaunch({ url: '/pages/index/index' }), 600)
@@ -83,18 +85,18 @@ function onLogout() {
   <view class="login">
     <wd-toast selector="login-toast" />
 
-    <text class="login-intro wot-text-secondary">{{ t('login.intro') }}</text>
+    <text class="login-intro wot-text-text-secondary">{{ t('login.intro') }}</text>
 
     <!-- 已登录：会话快照 -->
     <view v-if="loggedIn" class="card">
       <view class="card-head">
-        <text class="card-title wot-text-main">{{ t('login.loggedIn') }}</text>
+        <text class="card-title wot-text-text-main">{{ t('login.loggedIn') }}</text>
         <wd-button size="small" plain @click="onLogout">{{ t('login.logout') }}</wd-button>
       </view>
       <view class="rows">
         <view v-for="row in sessionRows" :key="row.label" class="row">
-          <text class="row-label wot-text-secondary">{{ row.label }}</text>
-          <text class="row-value wot-text-main">{{ row.value }}</text>
+          <text class="row-label wot-text-text-secondary">{{ row.label }}</text>
+          <text class="row-value wot-text-text-main">{{ row.value }}</text>
         </view>
       </view>
     </view>

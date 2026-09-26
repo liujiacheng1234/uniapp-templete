@@ -1,5 +1,5 @@
-import type { ExampleLoginRes } from '@/api/resp/exampleResp'
 import { setTokenRefreshHandler } from '@/api/request'
+import { tStatic } from '@/locales'
 import { AUTH_STORAGE_KEY, getStorage, removeStorage, setStorage } from './storage'
 
 /**
@@ -47,7 +47,7 @@ export function configureAuth(executor: () => Promise<LoginUserRes>) {
 /** 用注入的执行器执行登录并落盘（带并发去重） */
 export async function loginWithExecutor(): Promise<AuthSession> {
   if (!loginExecutor) {
-    throw new Error('尚未配置登录执行器：请在应用入口调用 configureAuth')
+    throw new Error(tStatic('request.loginExecutorMissing'))
   }
   if (loginPromise) {
     return loginPromise
@@ -79,7 +79,7 @@ function normalizeAuthSession(data: LoginUserRes): AuthSession {
  */
 export function applyAuthSession(loginData: LoginUserRes): AuthSession {
   if (!loginData?.userToken) {
-    throw new Error('登录接口未返回 token')
+    throw new Error(tStatic('request.loginNoToken'))
   }
   const authSession = normalizeAuthSession(loginData)
   setStorage(AUTH_STORAGE_KEY, authSession)
@@ -92,7 +92,7 @@ export function applyAuthSession(loginData: LoginUserRes): AuthSession {
  */
 export function replaceAuthSessionToken(loginData: LoginUserRes) {
   if (!loginData?.userToken) {
-    throw new Error('登录接口未返回 token')
+    throw new Error(tStatic('request.loginNoToken'))
   }
 
   const session = getAuthSession()
@@ -100,12 +100,17 @@ export function replaceAuthSessionToken(loginData: LoginUserRes) {
     return applyAuthSession(loginData)
   }
 
-  const nextSession: AuthSession = { ...session, userToken: String(loginData.userToken), loginAt: Date.now() }
+  const nextSession: AuthSession = {
+    ...session,
+    userToken: String(loginData.userToken),
+    loginAt: Date.now(),
+  }
   if (loginData.userId != null) nextSession.userId = String(loginData.userId)
   if (loginData.phone != null) nextSession.phone = String(loginData.phone)
   if (loginData.nickname != null) nextSession.nickname = String(loginData.nickname)
   if (loginData.avatarUrl != null) nextSession.avatarUrl = String(loginData.avatarUrl)
-  if (loginData.realNameVerified != null) nextSession.realNameVerified = Boolean(loginData.realNameVerified)
+  if (loginData.realNameVerified != null)
+    nextSession.realNameVerified = Boolean(loginData.realNameVerified)
   if (loginData.status != null) nextSession.status = String(loginData.status)
 
   setStorage(AUTH_STORAGE_KEY, nextSession)
@@ -139,6 +144,3 @@ export function updateAuthSessionUser(patch: Partial<Omit<AuthSession, 'userToke
   setStorage(AUTH_STORAGE_KEY, nextSession)
   return nextSession
 }
-
-/** 类型收窄示例：模板示例登录接口的响应即 LoginUserRes（ExampleLoginRes 结构一致） */
-export type { ExampleLoginRes }
