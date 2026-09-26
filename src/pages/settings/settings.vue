@@ -185,7 +185,9 @@ onShow(applyNavTitle)
 <style lang="scss" scoped>
 .settings {
   min-height: 100vh;
+  /* 底部预留安全区（iPhone home 指示条），不支持 env() 的端回退到 48rpx */
   padding-bottom: 48rpx;
+  padding-bottom: calc(48rpx + env(safe-area-inset-bottom));
   box-sizing: border-box;
   background-color: var(--wot-filled-bottom);
 }
@@ -221,6 +223,11 @@ onShow(applyNavTitle)
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* 图标与「标题+描述」整块垂直居中（wd-cell__left 默认顶对齐，多行描述时图标会偏上） */
+.settings-cell :deep(.wd-cell__left) {
+  align-items: center;
 }
 
 /* wd-cell 左右栏默认各 flex:1（50/50 均分），而右侧 value 内容很窄，
