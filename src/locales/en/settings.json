@@ -7,13 +7,13 @@
   "groupTitle": "Appearance & language",
   "theme": {
     "title": "Theme",
-    "desc": "Change the app-wide colors and visual style",
+    "desc": "App-wide colors and style",
     "pickerTitle": "Choose a theme",
     "mode": "Dark mode"
   },
   "language": {
     "title": "App language",
-    "desc": "Change both app and component text",
+    "desc": "App and component text",
     "pickerTitle": "Choose a language",
     "options": {
       "zhCN": "简体中文",

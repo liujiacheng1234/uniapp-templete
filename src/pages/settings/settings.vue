@@ -22,8 +22,10 @@ const languagePickerVisible = ref(false)
 
 const cardCustomStyle =
   '--wot-cell-group-insert-radius: 32rpx; --wot-cell-group-insert-margin: 0 24rpx; border-style: solid; box-shadow: 0 16rpx 48rpx var(--wot-divider-light);'
+// 单元格排版：标题/描述/值形成 30/24/26rpx 层级，拉开图标间距；
+// 不设 title-width（左右栏默认均分），desc 允许自然换行，避免小字号硬挤压。
 const cellCustomStyle =
-  '--wot-cell-padding: 24rpx; --wot-cell-title-font-size: 28rpx; --wot-cell-title-line-height: 38rpx; --wot-cell-label-font-size: 22rpx; --wot-cell-label-line-height: 32rpx; --wot-cell-value-font-size: 24rpx;'
+  '--wot-cell-padding: 28rpx; --wot-cell-title-font-size: 30rpx; --wot-cell-title-line-height: 42rpx; --wot-cell-label-font-size: 24rpx; --wot-cell-label-line-height: 34rpx; --wot-cell-value-font-size: 26rpx; --wot-cell-icon-spacing-right: 16rpx;'
 
 const themeColumns = computed(() =>
   THEME_PRESET_KEYS.map((value) => ({
@@ -99,7 +101,6 @@ onShow(applyNavTitle)
           :title="t('settings.theme.title')"
           :label="t('settings.theme.desc')"
           :value="currentThemeLabel"
-          title-width="58%"
           :custom-style="cellCustomStyle"
           is-link
           center
@@ -116,7 +117,6 @@ onShow(applyNavTitle)
         <wd-cell
           :title="t('settings.theme.mode')"
           :label="currentModeLabel"
-          title-width="58%"
           :custom-style="cellCustomStyle"
           center
         >
@@ -133,7 +133,6 @@ onShow(applyNavTitle)
           :title="t('settings.language.title')"
           :label="t('settings.language.desc')"
           :value="currentLanguageLabel"
-          title-width="58%"
           :custom-style="cellCustomStyle"
           is-link
           center

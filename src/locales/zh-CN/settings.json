@@ -7,13 +7,13 @@
   "groupTitle": "外观与语言",
   "theme": {
     "title": "主题风格",
-    "desc": "切换应用的全局颜色与视觉风格",
+    "desc": "全局颜色与视觉风格",
     "pickerTitle": "选择主题风格",
     "mode": "深色模式"
   },
   "language": {
     "title": "应用语言",
-    "desc": "同时切换业务文案和组件文案",
+    "desc": "切换业务与组件文案",
     "pickerTitle": "选择应用语言",
     "options": {
       "zhCN": "简体中文",
