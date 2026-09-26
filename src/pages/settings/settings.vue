@@ -22,10 +22,10 @@ const languagePickerVisible = ref(false)
 
 const cardCustomStyle =
   '--wot-cell-group-insert-radius: 32rpx; --wot-cell-group-insert-margin: 0 24rpx; border-style: solid; box-shadow: 0 16rpx 48rpx var(--wot-divider-light);'
-// 单元格排版：标题/描述/值形成 30/24/26rpx 层级，拉开图标间距；
+// 单元格排版：标题/描述/值形成 30/24/26rpx 层级；
 // 不设 title-width（左右栏默认均分），desc 允许自然换行，避免小字号硬挤压。
 const cellCustomStyle =
-  '--wot-cell-padding: 28rpx; --wot-cell-title-font-size: 30rpx; --wot-cell-title-line-height: 42rpx; --wot-cell-label-font-size: 24rpx; --wot-cell-label-line-height: 34rpx; --wot-cell-value-font-size: 26rpx; --wot-cell-icon-spacing-right: 16rpx;'
+  '--wot-cell-padding: 28rpx; --wot-cell-title-font-size: 30rpx; --wot-cell-title-line-height: 42rpx; --wot-cell-label-font-size: 24rpx; --wot-cell-label-line-height: 34rpx; --wot-cell-value-font-size: 26rpx;'
 
 const themeColumns = computed(() =>
   THEME_PRESET_KEYS.map((value) => ({
@@ -223,6 +223,10 @@ onShow(applyNavTitle)
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  /* 与标题的间距：prefix 用插槽时不带 .wd-cell__prefix，
+     --wot-cell-icon-spacing-right 不会生效，直接在包裹类上给 */
+  margin-right: 20rpx;
 }
 
 /* 图标与「标题+描述」整块垂直居中（wd-cell__left 默认顶对齐，多行描述时图标会偏上） */
