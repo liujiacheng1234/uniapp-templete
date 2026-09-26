@@ -1,0 +1,34 @@
+{
+  "navTitle": "Home",
+  "hero": {
+    "title": "uni-app Frontend Skeleton",
+    "desc": "Vue3 + TypeScript + wot-ui v2 + UnoCSS, with request layer, theming, i18n, mocks and quality gates built in."
+  },
+  "cards": {
+    "arch": {
+      "title": "Architecture",
+      "desc": "Read docs/frontend-architecture.md before coding: layering, request conventions, theming and i18n rules."
+    },
+    "list": {
+      "title": "List example",
+      "desc": "usePagedList pagination + useApi error fallback + status tag component, runs on mock data out of the box."
+    },
+    "form": {
+      "title": "Form example",
+      "desc": "Standard validation, submitting state and success feedback."
+    },
+    "login": {
+      "title": "Login example",
+      "desc": "Session persistence, auth header injection and silent re-login."
+    },
+    "settings": {
+      "title": "Settings",
+      "desc": "Theme presets (green/blue) × light/dark × language."
+    }
+  },
+  "goto": "Open",
+  "themePreview": {
+    "title": "Theme preview",
+    "desc": "Swatches below come from themes/presets.ts; switching preset or mode applies app-wide."
+  }
+}

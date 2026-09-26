@@ -1,0 +1,12 @@
+{
+  "preset": {
+    "brand-green": "Brand Green",
+    "contrast": "Contrast Blue"
+  },
+  "mode": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "switchPreset": "Switch theme preset",
+  "currentPreset": "Current preset: {preset}"
+}

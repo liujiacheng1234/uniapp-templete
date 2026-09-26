@@ -1,0 +1,34 @@
+{
+  "navTitle": "首页",
+  "hero": {
+    "title": "uni-app 前端骨架",
+    "desc": "Vue3 + TypeScript + wot-ui v2 + UnoCSS，内置请求层、主题、i18n、mock 与质量门禁。"
+  },
+  "cards": {
+    "arch": {
+      "title": "架构规范",
+      "desc": "开发前必读 docs/frontend-architecture.md：分层、请求范式、主题与 i18n 约定都在里面。"
+    },
+    "list": {
+      "title": "列表示例",
+      "desc": "usePagedList 分页状态机 + useApi 错误兜底 + 状态标签组件，mock 数据开箱即跑。"
+    },
+    "form": {
+      "title": "表单示例",
+      "desc": "输入校验、提交 loading、成功回执的标准写法。"
+    },
+    "login": {
+      "title": "登录示例",
+      "desc": "登录会话落盘、请求层鉴权头注入与静默重登的完整链路。"
+    },
+    "settings": {
+      "title": "通用设置",
+      "desc": "主题预设（品牌绿/对比蓝）× 深浅模式 × 语言切换。"
+    }
+  },
+  "goto": "查看",
+  "themePreview": {
+    "title": "主题预览",
+    "desc": "下方色块来自 themes/presets.ts，切换预设或深浅模式会全局生效。"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": ["@dcloudio/types", "node"],
+    // @vue/tsconfig 默认 importsNotUsedAsValues:'error'，与 wot-ui 原始 .ts 源码冲突（TS1371）。
+    // 降为 'remove'：仅在编译期移除「仅类型」导入，不报错。该选项本身已被 TS 标记为 deprecated。
+    "importsNotUsedAsValues": "remove",
+    // 同上：@vue/tsconfig@0.1.3 预设 preserveValueImports:true（TS5 起废弃，TS5101 报错）。
+    // 其替代品 verbatimModuleSyntax 要求全仓 type-only import 改造，收益不大，这里直接关闭。
+    "preserveValueImports": false
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "test/**/*.ts", "vitest.config.ts"]
+}

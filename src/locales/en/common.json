@@ -1,0 +1,11 @@
+{
+  "appName": "App Template",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "retry": "Retry",
+  "loadFailed": "Failed to load, please retry",
+  "loadMoreFailed": "Failed to load more",
+  "empty": "No data",
+  "submitFailed": "Submit failed, please retry"
+}

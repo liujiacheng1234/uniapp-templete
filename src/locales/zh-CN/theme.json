@@ -1,0 +1,12 @@
+{
+  "preset": {
+    "brand-green": "品牌绿",
+    "contrast": "对比蓝"
+  },
+  "mode": {
+    "light": "浅色",
+    "dark": "深色"
+  },
+  "switchPreset": "切换主题预设",
+  "currentPreset": "当前预设：{preset}"
+}

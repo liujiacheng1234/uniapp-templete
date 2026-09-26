@@ -1,0 +1,24 @@
+{
+  "navTitle": "General settings",
+  "intro": {
+    "title": "Make the app feel like yours",
+    "desc": "Theme and language preferences are saved locally and applied throughout the app."
+  },
+  "groupTitle": "Appearance & language",
+  "theme": {
+    "title": "Theme",
+    "desc": "Change the app-wide colors and visual style",
+    "pickerTitle": "Choose a theme",
+    "mode": "Dark mode"
+  },
+  "language": {
+    "title": "App language",
+    "desc": "Change both app and component text",
+    "pickerTitle": "Choose a language",
+    "options": {
+      "zhCN": "简体中文",
+      "en": "English"
+    }
+  },
+  "notice": "Changes are saved immediately. This settings page ships with the skeleton — extend it per project."
+}

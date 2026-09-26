@@ -1,0 +1,8 @@
+{
+  "navTitle": "List example",
+  "noMore": "— No more —",
+  "summary": "{total} items in total",
+  "itemAmount": "Amount",
+  "demo": "Mock data: 23 items, 10 per page, auto load-more on reach bottom",
+  "retry": "Reload"
+}

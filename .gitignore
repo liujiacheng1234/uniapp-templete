@@ -1,0 +1,28 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+unpackage
+
+# 本地环境变量（个人差异 / 敏感配置不入库）
+*.local
+
+# 编辑器
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 构建辅助
+.DS_Store
+*.local

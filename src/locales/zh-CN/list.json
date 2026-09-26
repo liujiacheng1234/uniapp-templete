@@ -1,0 +1,8 @@
+{
+  "navTitle": "列表示例",
+  "noMore": "— 没有更多了 —",
+  "summary": "共 {total} 条",
+  "itemAmount": "金额",
+  "demo": "mock 数据：23 条，每页 10 条，触底自动加载",
+  "retry": "重新加载"
+}

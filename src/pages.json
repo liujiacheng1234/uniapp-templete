@@ -1,0 +1,52 @@
+{
+  // 颜色约定：页面 / 导航栏背景色的唯一来源是 src/themes/presets.ts（page = filledBottom）。
+  // 已知限制：pages.json 是构建期静态配置，颜色不跟随运行时主题切换（含深色模式）；
+  // 首帧之后的窗口底色 / 原生导航栏由 App.ku.vue 通过 uni.setBackgroundColor / setNavigationBarColor 同步。
+  // 新增页面：只写 navigationBarTitleText，颜色与文本样式继承下方 globalStyle，禁止逐页复制零散色值；
+  // 仅自定义导航（navigationStyle: custom）或特殊底色页面才允许覆盖颜色。
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^wd-(.*)": "@wot-ui/ui/components/wd-$1/wd-$1.vue"
+    }
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-template",
+    "navigationBarBackgroundColor": "#f6faf7",
+    "backgroundColor": "#f6faf7"
+  },
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/settings/settings",
+      "style": {
+        "navigationBarTitleText": "通用设置"
+      }
+    },
+    {
+      // 登录页路径是约定：src/api/request.ts 登录守卫 reLaunch 固定跳转 /pages/login/login
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/examples/list/list",
+      "style": {
+        "navigationBarTitleText": "列表示例"
+      }
+    },
+    {
+      "path": "pages/examples/form/form",
+      "style": {
+        "navigationBarTitleText": "表单示例"
+      }
+    }
+  ]
+}

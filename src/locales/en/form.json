@@ -1,0 +1,19 @@
+{
+  "navTitle": "Form example",
+  "orderNo": "Order No.",
+  "orderNoPlaceholder": "Enter order no. (e.g. EX2026831001)",
+  "issueType": "Issue type",
+  "issueTypePlaceholder": "Select issue type",
+  "remark": "Remark",
+  "remarkPlaceholder": "Optional, up to 200 characters",
+  "submit": "Submit",
+  "submitting": "Submitting…",
+  "validation": {
+    "orderNoRequired": "Order no. is required",
+    "issueTypeRequired": "Issue type is required",
+    "remarkMax": "Remark cannot exceed 200 characters"
+  },
+  "toast": {
+    "submitted": "Submitted"
+  }
+}

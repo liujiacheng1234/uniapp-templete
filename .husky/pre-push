@@ -1,0 +1,3 @@
+# 推送前全量类型检查（pre-commit 只做 eslint/prettier 增量，vue-tsc 较慢放这里）
+# 手动全量校验：npm run verify（lint + type-check）
+npm run type-check

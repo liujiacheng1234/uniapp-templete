@@ -1,0 +1,22 @@
+{
+  "navTitle": "Login",
+  "intro": "Account login is a template demo flow (mocked). Replace the configureAuth executor with your real login when integrating.",
+  "username": "Username",
+  "usernamePlaceholder": "Enter username",
+  "password": "Password",
+  "passwordPlaceholder": "Enter password",
+  "submit": "Sign in",
+  "submitting": "Signing in…",
+  "loggedIn": "Signed in",
+  "loggedInAs": "Current user: {nickname}",
+  "logout": "Sign out",
+  "validation": {
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 6 characters"
+  },
+  "toast": {
+    "loginFailed": "Sign in failed",
+    "logoutDone": "Signed out"
+  }
+}

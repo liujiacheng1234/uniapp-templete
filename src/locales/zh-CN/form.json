@@ -1,0 +1,19 @@
+{
+  "navTitle": "表单示例",
+  "orderNo": "关联订单号",
+  "orderNoPlaceholder": "请输入订单号（如 EX2026831001）",
+  "issueType": "问题类型",
+  "issueTypePlaceholder": "请选择问题类型",
+  "remark": "备注说明",
+  "remarkPlaceholder": "补充描述（选填，最多 200 字）",
+  "submit": "提交",
+  "submitting": "提交中…",
+  "validation": {
+    "orderNoRequired": "请输入订单号",
+    "issueTypeRequired": "请选择问题类型",
+    "remarkMax": "备注不能超过 200 字"
+  },
+  "toast": {
+    "submitted": "提交成功"
+  }
+}

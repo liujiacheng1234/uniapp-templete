@@ -1,0 +1,11 @@
+{
+  "appName": "应用模板",
+  "ok": "确定",
+  "cancel": "取消",
+  "confirm": "确认",
+  "retry": "重试",
+  "loadFailed": "加载失败，请稍后重试",
+  "loadMoreFailed": "加载更多失败",
+  "empty": "暂无数据",
+  "submitFailed": "提交失败，请稍后重试"
+}
