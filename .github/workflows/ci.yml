@@ -13,7 +13,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # 依赖树硬性要求 node ≥ 22.12（commitlint 系），且 .npmrc 开了 engine-strict，
+          # 低版本 npm ci 直接失败；20 已 EOL，统一用 22 LTS
+          node-version: 22
           cache: npm
 
       - name: Install dependencies

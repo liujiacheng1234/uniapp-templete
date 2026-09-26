@@ -18,7 +18,7 @@
 | 国际化 | vue-i18n（runtime-only 模式） | 9.x |
 | 虚拟根组件 | @uni-ku/root（App.ku.vue） | ^1.5 |
 | 测试 | Vitest（纯逻辑层单测） | ^3（勿升 4，需 vite 6+） |
-| 包管理 | **npm（唯一）** | node ≥ 20 |
+| 包管理 | **npm（唯一）** | node ≥ 22.12 |
 
 包管理器铁律：**只使用 npm**（锁文件仅 `package-lock.json`），不引入 pnpm/yarn。
 

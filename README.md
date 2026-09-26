@@ -4,7 +4,7 @@
 
 ## 快速开始
 
-> 要求 Node ≥ 20（`.npmrc` 已开 `engine-strict`，低版本 `npm install` 直接报错）。
+> 要求 Node ≥ 22.12（依赖树硬约束，`.npmrc` 已开 `engine-strict`，低版本 `npm install` 直接报错）。
 
 ```bash
 git init              # 先初始化 git（husky 钩子依赖 git 仓库，否则 prepare 仅告警）
