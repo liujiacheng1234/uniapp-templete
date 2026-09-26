@@ -101,6 +101,7 @@ onShow(applyNavTitle)
           :title="t('settings.theme.title')"
           :label="t('settings.theme.desc')"
           :value="currentThemeLabel"
+          custom-class="settings-cell"
           :custom-style="cellCustomStyle"
           is-link
           center
@@ -117,6 +118,7 @@ onShow(applyNavTitle)
         <wd-cell
           :title="t('settings.theme.mode')"
           :label="currentModeLabel"
+          custom-class="settings-cell"
           :custom-style="cellCustomStyle"
           center
         >
@@ -133,6 +135,7 @@ onShow(applyNavTitle)
           :title="t('settings.language.title')"
           :label="t('settings.language.desc')"
           :value="currentLanguageLabel"
+          custom-class="settings-cell"
           :custom-style="cellCustomStyle"
           is-link
           center
@@ -218,6 +221,15 @@ onShow(applyNavTitle)
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* wd-cell 左右栏默认各 flex:1（50/50 均分），而右侧 value 内容很窄，
+   白白占掉一半宽度、把左栏 desc 挤到换行。让右侧收缩为内容宽，
+   左栏占据剩余全部宽度，desc 保持单行（组件已开 styleIsolation:shared，页面样式可穿透）。 */
+.settings-cell :deep(.wd-cell__right) {
+  flex: 0 0 auto;
+  max-width: 50%;
+  padding-left: 24rpx;
 }
 
 .settings-notice {
